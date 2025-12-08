@@ -1,4 +1,5 @@
 "use client"
+// import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React, { useRef, useState } from 'react'
 import { toast } from 'react-toastify'
@@ -65,6 +66,10 @@ export default function page() {
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.message)
+
+      // let result = await signIn('credentials', {
+
+      // })
       toast.success(data.message)
       setTimeout(() => router.push("/todos"), 1500)
 

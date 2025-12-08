@@ -14,10 +14,19 @@ const UserSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        select : false,
+        select: false,
         required: [true, "Password Must Be Required"],
         minLength: [6, "Minimum Password Length Must Be 6 Characters"],
         match: [/(?=.*[A-Z])/, "Password must contain at least one uppercase letter"]
+    },
+    role: {
+        type: String,
+        default: "user",
+        enum: ["admin", "user"]
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 })
 
@@ -28,5 +37,9 @@ UserSchema.pre("save", async function () {
 
 
 })
+
+UserSchema.methods.ComparePass = async function (pass) {
+    return await bcrypt.compare(pass, this.password)
+}
 
 export default mongoose.models.User || mongoose.model("User", UserSchema)

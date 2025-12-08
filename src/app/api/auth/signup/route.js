@@ -1,4 +1,4 @@
-import ConnectDB from "@/app/lib/mongo"
+import ConnectDB from "@/lib/mongo"
 import userSchema from "@/app/model/user"
 import { NextResponse } from "next/server"
 
@@ -32,5 +32,5 @@ export const POST = async (req) => {
             { success: false, message: "Server Error" },
             { status: 500 }
         );
-    } 
+    }
 }
