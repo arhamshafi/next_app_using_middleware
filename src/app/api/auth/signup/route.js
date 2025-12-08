@@ -1,5 +1,5 @@
 import ConnectDB from "@/lib/mongo"
-import userSchema from "@/app/model/user"
+import userSchema from "@/model/user"
 import { NextResponse } from "next/server"
 
 
@@ -34,3 +34,6 @@ export const POST = async (req) => {
         );
     }
 }
+
+
+// credentials ma kuch a ni rh a....

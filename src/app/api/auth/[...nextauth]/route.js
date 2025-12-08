@@ -1,18 +1,20 @@
-import Credentials from "next-auth/providers/credentials"
 import ConnectDB from "@/lib/mongo"
 import userSchema from "@/model/user"
 import NextAuth from "next-auth"
+import Credentials from "next-auth/providers/credentials";
 
 const authOption = {
     providers: [
         Credentials({
             name: "credentials",
             async authorize(credentials) {
+                console.log("Credential Object ", credentials);
+
                 try {
                     await ConnectDB()
                     const User = await userSchema.findOne({ email: credentials.email }).select("+password")
                     if (!User) throw new Error("Invalid E-mail or Password")
-                    const isPassValid = await userSchema.ComparePass(credentials.password)
+                    const isPassValid = await User.ComparePass(credentials.password)
                     if (!isPassValid) throw new Error("Invalid E-mail or Password")
 
                     return { id: User._id.toString(), email: User.email, name: User.name }
@@ -34,17 +36,17 @@ const authOption = {
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-                token.id = user.id,
-                    token.name = user.name,
-                    token.email = user.email
+                token.id = user.id
+                token.name = user.name
+                token.email = user.email
             }
             return token
         },
         async session({ session, token }) {
             if (token && session.user) {
-                session.user.id = token.id,
-                    session.user.name = token.name,
-                    session.user.email = token.email
+                session.user.id = token.id
+                session.user.name = token.name
+                session.user.email = token.email
             }
             return session
         }
@@ -56,7 +58,6 @@ const authOption = {
     },
     debug: process.env.NODE_ENV === "development",
     secret: process.env.NEXTAUTH_SECRET
-
 }
 
 const handler = NextAuth(authOption)

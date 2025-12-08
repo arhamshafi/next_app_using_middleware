@@ -47,10 +47,12 @@ export default function page() {
                 password: formdata.password,
                 redirect: false
             })
+            console.log(res);
+            
             if (res.error) throw new Error(res.error)
 
             toast.success("Successfully Logged")
-            setTimeout(() => router.push("/todos"), 1000)
+            // setTimeout(() => router.push("/todos"), 1000)
 
 
         } catch (err) {
