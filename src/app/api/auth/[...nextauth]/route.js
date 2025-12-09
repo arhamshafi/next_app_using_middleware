@@ -1,5 +1,6 @@
 import ConnectDB from "@/lib/mongo"
 import userSchema from "@/model/user"
+import mongoose from "mongoose";
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials";
 
@@ -8,16 +9,18 @@ const authOption = {
         Credentials({
             name: "credentials",
             async authorize(credentials) {
-                console.log("Credential Object ", credentials);
 
                 try {
                     await ConnectDB()
-                    const User = await userSchema.findOne({ email: credentials.email }).select("+password")
-                    if (!User) throw new Error("Invalid E-mail or Password")
-                    const isPassValid = await User.ComparePass(credentials.password)
+                    console.log("DB STATE:", mongoose.connection.readyState);
+                    const newUser = await userSchema.findOne({ email: credentials.email.toLowerCase().trim() }).select("+password")
+                    console.log( "User Here !" , newUser);
+                    
+                    if (!newUser) throw new Error("Invalid E-mail or Password")
+                    const isPassValid = await newUser.ComparePass(credentials.password)
                     if (!isPassValid) throw new Error("Invalid E-mail or Password")
 
-                    return { id: User._id.toString(), email: User.email, name: User.name }
+                    return { id: newUser._id.toString(), email: newUser.email, name: newUser.name }
 
                 } catch (err) {
                     throw new Error(err.message || "Server Error")

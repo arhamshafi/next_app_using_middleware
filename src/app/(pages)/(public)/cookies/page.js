@@ -6,7 +6,7 @@ export default async function Page() {
     console.log(all_cookies);
 
     return (
-        <div className='w-full min-h-screen bg-blue-600 flex justify-center items-center text-white font-bold text-2xl '>
+        <div className='w-full min-h-screen bg-blue-600 flex justify-center items-center flex-col text-white font-bold text-2xl '>
             {all_cookies.map((c) => (
                 <p key={c.name}>{c.name}: {c.value}</p>
             ))}
