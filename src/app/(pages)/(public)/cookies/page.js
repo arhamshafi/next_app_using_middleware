@@ -1,5 +1,10 @@
 import { cookies } from "next/headers";
 
+export const metadata = {
+    title: "All Cookies Page",
+    description: "Displays all cookies stored in the browser",
+}
+
 export default async function Page() {
     const Cookies = await cookies();
     const all_cookies = Cookies.getAll();
