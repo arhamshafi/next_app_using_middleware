@@ -77,7 +77,7 @@ export default function page() {
       if (result.error) throw new Error(result.error)
       toast.success(data.message)
       setTimeout(() => router.push("/"), 1500)
-
+      setformdata({ name: "", email: "", password: "", confirmPassword: "" })
 
     } catch (err) {
       toast.error(err.message || "Error While Register Account");

@@ -4,18 +4,18 @@ import React from 'react'
 import { FaCrown } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { usePathname } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 function Navbar() {
 
     const active = usePathname() || "/"
     const { data: session, status } = useSession()
-    console.log(session, status);
+    console.log(session, status)
 
 
     return (
         <nav className='w-full h-[60px] bg-white fixed top-0 left-0 flex justify-between items-center px-10'>
-            <Link href={"/"}><div className='w-[100px] h-max '>  <img src="/next.svg" className='w-full' alt="" /> </div></Link>
+            <Link href={"/"}><div className='w-[100px] h-max '>  <img src="/next.svg" className='w-full' alt="" /></div></Link>
 
             {
                 status === "unauthenticated" ? (
@@ -42,6 +42,7 @@ function Navbar() {
                     <div className='flex justify-center items-center gap-5'>
                         <FaCrown className='text-yellow-500 text-xl cursor-pointer' />
                         <CgProfile className='text-blue-500 text-xl cursor-pointer' />
+                        <button onClick={()=> signOut({callbackUrl : "/"}) } className='bg-red-500 text-white'>Log Out</button>
                     </div>
                 </div>)
             }

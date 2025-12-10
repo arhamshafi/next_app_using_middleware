@@ -14,8 +14,8 @@ const authOption = {
                     await ConnectDB()
                     console.log("DB STATE:", mongoose.connection.readyState);
                     const newUser = await userSchema.findOne({ email: credentials.email.toLowerCase().trim() }).select("+password")
-                    console.log( "User Here !" , newUser);
-                    
+                    // console.log( "User Here !" , newUser);
+
                     if (!newUser) throw new Error("Invalid E-mail or Password")
                     const isPassValid = await newUser.ComparePass(credentials.password)
                     if (!isPassValid) throw new Error("Invalid E-mail or Password")

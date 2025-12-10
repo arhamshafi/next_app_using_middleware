@@ -35,5 +35,3 @@ export const POST = async (req) => {
     }
 }
 
-
-// credentials ma kuch a ni rh a....
