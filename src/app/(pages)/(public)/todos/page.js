@@ -1,3 +1,4 @@
+import TodoInput from '@/components/TodoInput'
 import { toast } from 'react-toastify'
 
 export const metadata = {
@@ -8,8 +9,9 @@ export const metadata = {
 function page() {
 
   return (
-    <div className='w-full min-h-screen bg-green-600 flex justify-center items-center text-white font-bold text-2xl '>
-      todos Page
+    <div className='w-full min-h-screen bg-green-600 flex flex-col items-center text-white font-bold text-2xl '>
+      <p className='text-white text-2xl font-bold mt-32'>TODOS</p>
+      <TodoInput/>
     </div>
   )
 }

@@ -10,7 +10,7 @@ function Navbar() {
 
     const active = usePathname() || "/"
     const { data: session, status } = useSession()
-    console.log(session, status)
+    // console.log(session, status)
 
 
     return (
