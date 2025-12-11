@@ -40,7 +40,7 @@ function Navbar() {
                         })}
                     </ul>
                     <div className='flex justify-center items-center gap-5'>
-                        <FaCrown className='text-yellow-500 text-xl cursor-pointer' />
+                        <Link href={"/admin"} ><FaCrown className='text-yellow-500 text-xl cursor-pointer' /></Link>
                         <CgProfile className='text-blue-500 text-xl cursor-pointer' />
                         <button onClick={()=> signOut({callbackUrl : "/"}) } className='bg-red-500 text-white'>Log Out</button>
                     </div>
